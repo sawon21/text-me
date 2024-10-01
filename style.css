@@ -1,0 +1,103 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #2AC1DC; /* Light gray background */
+    color: #343a40; /* Dark text color */
+}
+
+/* Container Styles */
+.container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #FCC868; /* White background for the container */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Heading Styles */
+h1 {
+    color: #007; /* Bootstrap primary color */
+    font-weight: bold;
+}
+
+/* Button Styles */
+#download-pdf {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: #ffffff; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for the button */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+/* Button Hover Effect */
+#download-pdf:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+}
+
+/* Table Styles */
+.table {
+    margin-top: 20px; /* Margin above the table */
+    border-collapse: collapse; /* Remove gaps between cells */
+}
+
+/* Table Header Styles */
+.table-dark {
+    background-color: #343a40; /* Dark background for the header */
+    color: white; /* White text for the header */
+}
+
+/* Table Row Styles */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2; /* Light gray for odd rows */
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 8px; /* Rounded corners for modal */
+    animation: fadeIn 0.5s ease; /* Fade-in animation */
+}
+
+/* Keyframes for fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal Icon Styles */
+#modal-icon {
+    font-size: 60px; /* Larger icon */
+    color: #28a745; /* Green color for success */
+}
+
+/* Modal Text Styles */
+#modal-body-text {
+    font-size: 20px; /* Font size for modal text */
+    margin-top: 10px; /* Space above text */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 24px; /* Smaller heading on mobile */
+    }
+
+    #download-pdf {
+        font-size: 14px; /* Smaller button text on mobile */
+        padding: 8px 16px; /* Adjust padding on mobile */
+    }
+
+    #modal-icon {
+        font-size: 50px; /* Smaller icon on mobile */
+    }
+
+    #modal-body-text {
+        font-size: 18px; /* Smaller text on mobile */
+    }
+}
