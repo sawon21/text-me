@@ -108,11 +108,13 @@
         /* Advanced modal styling */
         .modal-content {
             border-radius: 15px;
+            height: 600px;
         }
 
         .modal-header {
             background-color: #e52e71;
             color: white;
+            font-size: 200px;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
         }
@@ -120,6 +122,7 @@
         .modal-body {
             text-align: center;
             background: #f7f7f7;
+            font-size: 40px;
         }
 
         .modal-footer {
@@ -187,7 +190,7 @@
         <div class="chat-header">
           <img src="https://i.ibb.co.com/h71YD0b/FB-IMG-1677584164494-removebg-preview.png" width="60px" >
             <h3>𝐃𝐆𝐂𝐂 (𝐒𝐜𝐢𝐞𝐧𝐜𝐞) 𝐇𝐒𝐂 - 𝟐𝐤𝟐𝟒</h3>
-<h5><marquee> App testing...</marquee></h5>
+<h5><marquee> App testing... Chat Unlimited </marquee></h5>
         </div>
         <br>
         <div id="chat-body" class="chat-body d-flex flex-column"></div>
@@ -205,10 +208,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="nameModalLabel">Welcome to the Chat</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="https://i.ibb.co.com/0BkNRkW/user-4.png" width="90px">
                 </div>
                 <div class="modal-body">
-                    <label for="userName" class="form-label">Please enter your name:</label>
+                    <label for="userName" class="form-label">* Please enter your name:</label>
                     <input type="text" class="form-control" id="userName" placeholder="Your Name" required>
                 </div>
                 <div class="modal-footer">
@@ -277,7 +280,7 @@
 
             // Message Content with Sender, Text, and Timestamp
             messageElement.innerHTML = `
-                <strong style="color:#7FFFD4">${msg.sender} </strong> <br> ${msg.text} <span>${msg.timestamp}</span>
+                <strong style="color:#7FFFD4"> <img src="https://i.ibb.co.com/0BkNRkW/user-4.png" width="16px"> ${msg.sender} </strong> <br> ${msg.text} <span>${msg.timestamp}</span>
             `;
 
             // Append the new message to the chat body
