@@ -84,7 +84,7 @@ document.getElementById('chat-form').addEventListener('submit', (e) => {
             sender: userName,
             text: message,
             type: 'text',
-            timestamp: new Date().toLocaleTimeString()
+            timestamp: new Date().toISOString()  // Storing timestamp in ISO format
         });
         document.getElementById('message').value = '';
     }
@@ -112,7 +112,7 @@ document.getElementById('imageUpload').addEventListener('change', async (e) => {
                 sender: userName,
                 text: data.secure_url,
                 type: 'image',
-                timestamp: new Date().toLocaleTimeString()
+                timestamp: new Date().toISOString()  // Storing timestamp in ISO format
             });
         } else {
             alert('Image upload failed!');
@@ -133,21 +133,25 @@ db.ref('messages').on('child_added', (snapshot) => {
     const isSentByCurrentUser = msg.sender === userName;
     messageElement.classList.add(isSentByCurrentUser ? 'sent' : 'received');
 
+    const formattedTime = new Date(msg.timestamp).toLocaleString();  // Format timestamp to date and time
+
     const userProfile = userProfileRef.child(msg.sender);
     userProfile.once('value', (snapshot) => {
         const profile = snapshot.val();
         const userImage = profile ? profile.image : 'default-image.jpg';  // Default if no image set
 
+        const profileImage = `<img src="${userImage}" class="profile-image" alt="${msg.sender}'s profile">`;
+
         if (msg.type === 'text') {
             messageElement.innerHTML = `
-                <strong style="color:#7FFFD4"><img src="${userImage}" width="29px"> ${msg.sender}</strong>
-                <br>${msg.text} <span>${msg.timestamp}</span>
+                <strong style="color:#7FFFD4">${profileImage} ${msg.sender}</strong>
+                <br>${msg.text} <span>${formattedTime}</span>
             `;
         } else if (msg.type === 'image') {
             messageElement.innerHTML = `
-                <strong style="color:#7FFFD4"><img src="${userImage}" width="29px"> ${msg.sender}</strong>
+                <strong style="color:#7FFFD4">${profileImage} ${msg.sender}</strong>
                 <br><img src="${msg.text}" alt="Uploaded Image" style="max-width: 200px; border-radius: 8px;">
-                <br><span>${msg.timestamp}</span>
+                <br><span>${formattedTime}</span>
             `;
         }
 

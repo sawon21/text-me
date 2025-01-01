@@ -30,9 +30,10 @@
 <table>
   <th><div id="chatUserDisplay" class="mb-3 text-center"></div> </th>
   <th><div id="active-users" style="font-size: 10px; font-weight: bold; color: yellow;">Active Users: 0</div></th>
-<th><div id="typing-indicator" style="font-style: italic; font-size: 8px;color: white;"></div></th>
+<th></th>
 </table>
         <div id="chat-body" class="chat-body d-flex flex-column"></div>
+        <div id="typing-indicator" style="font-style: italic; font-size: 12px;color: blue;"></div>
 <div class="chat-footer">
     <form id="chat-form" class="d-flex w-100">
         <input id="message" type="text" class="form-control" placeholder="Type your message..." autocomplete="off" >
@@ -49,14 +50,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="nameModalLabel">Welcome</h5>
-                    <img src="https://i.ibb.co.com/0BkNRkW/user-4.png" width="90px">
                 </div>
                 <div class="modal-body">
-                    <label for="userName" class="form-label">* Your Full name:</label>
+                    <label for="userName" class="form-label">* Full name:</label>
                     <input type="text" class="form-control" id="userName" placeholder="Your Full Name" required> <br>
-                    <!-- Profile Image Upload -->
-<input type="file" id="profileImageUpload" style="display: none;">
-<button id="uploadProfileBtn">*Upload Profile Image</button>
+                    <!-- Profile Image Upload --><img src="https://i.ibb.co.com/0BkNRkW/user-4.png" width="90px">
+<input type="file" id="profileImageUpload" style="display: none;" required>
+<button id="uploadProfileBtn" required>*Upload Profile Image</button>
 <!-- Chat User Display -->
 <div id="chatUserDisplay"></div>
                 </div>
