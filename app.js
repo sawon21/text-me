@@ -40,6 +40,7 @@ document.getElementById('startChat').addEventListener('click', () => {
         const modal = bootstrap.Modal.getInstance(document.getElementById('nameModal'));
         modal.hide();
         addUserToActiveList();
+        saveUserProfile();  // Save user profile after setting name
     } else {
         alert("Please enter your name to start chatting.");
     }
@@ -61,6 +62,18 @@ activeUsersRef.on('value', (snapshot) => {
     const count = activeUsers ? Object.keys(activeUsers).length : 0;
     activeUsersDiv.textContent = `Active Users: ${count}`;
 });
+
+// Save User Profile (Name and Image)
+const userProfileRef = db.ref('users');
+function saveUserProfile() {
+    const userName = localStorage.getItem('chatUserName');
+    const userImage = localStorage.getItem('chatUserImage');
+
+    userProfileRef.child(userName).set({
+        name: userName,
+        image: userImage || 'default-image.jpg',  // Use default image if none uploaded
+    });
+}
 
 // Send Message
 document.getElementById('chat-form').addEventListener('submit', (e) => {
@@ -120,21 +133,27 @@ db.ref('messages').on('child_added', (snapshot) => {
     const isSentByCurrentUser = msg.sender === userName;
     messageElement.classList.add(isSentByCurrentUser ? 'sent' : 'received');
 
-    if (msg.type === 'text') {
-        messageElement.innerHTML = `
-            <strong style="color:#7FFFD4"><img src="https://i.ibb.co/0BkNRkW/user-4.png" width="16px"> ${msg.sender}</strong>
-            <br>${msg.text} <span>${msg.timestamp}</span>
-        `;
-    } else if (msg.type === 'image') {
-        messageElement.innerHTML = `
-            <strong style="color:#7FFFD4"><img src="https://i.ibb.co/0BkNRkW/user-4.png" width="16px"> ${msg.sender}</strong>
-            <br><img src="${msg.text}" alt="Uploaded Image" style="max-width: 200px; border-radius: 8px;">
-            <br><span>${msg.timestamp}</span>
-        `;
-    }
+    const userProfile = userProfileRef.child(msg.sender);
+    userProfile.once('value', (snapshot) => {
+        const profile = snapshot.val();
+        const userImage = profile ? profile.image : 'default-image.jpg';  // Default if no image set
 
-    chatBody.appendChild(messageElement);
-    chatBody.scrollTop = chatBody.scrollHeight; // Auto-scroll to latest message
+        if (msg.type === 'text') {
+            messageElement.innerHTML = `
+                <strong style="color:#7FFFD4"><img src="${userImage}" width="29px"> ${msg.sender}</strong>
+                <br>${msg.text} <span>${msg.timestamp}</span>
+            `;
+        } else if (msg.type === 'image') {
+            messageElement.innerHTML = `
+                <strong style="color:#7FFFD4"><img src="${userImage}" width="29px"> ${msg.sender}</strong>
+                <br><img src="${msg.text}" alt="Uploaded Image" style="max-width: 200px; border-radius: 8px;">
+                <br><span>${msg.timestamp}</span>
+            `;
+        }
+
+        chatBody.appendChild(messageElement);
+        chatBody.scrollTop = chatBody.scrollHeight; // Auto-scroll to latest message
+    });
 });
 
 // Typing Indicator
@@ -152,4 +171,38 @@ typingRef.on('child_added', (snapshot) => {
 
 typingRef.on('child_removed', () => {
     document.getElementById('typing-indicator').textContent = '';
+});
+
+// Profile Image Upload
+document.getElementById('uploadProfileBtn').addEventListener('click', () => {
+    document.getElementById('profileImageUpload').click();
+});
+
+document.getElementById('profileImageUpload').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+    try {
+        const response = await fetch(CLOUDINARY_URL, { method: 'POST', body: formData });
+        const data = await response.json();
+
+        if (data.secure_url) {
+            // Store the uploaded profile image URL in local storage
+            localStorage.setItem('chatUserImage', data.secure_url);
+
+            // Save profile to Firebase
+            saveUserProfile();
+
+            alert('Profile image uploaded successfully!');
+        } else {
+            alert('Image upload failed!');
+        }
+    } catch (err) {
+        console.error('Image upload error:', err);
+        alert('Error uploading image!');
+    }
 });
