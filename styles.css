@@ -104,7 +104,7 @@ font-family: "Caudex", serif;
         /* Advanced modal styling */
         .modal-content {
             border-radius: 15px;
-            height: 600px;
+            height: 750px;
         }
 
         .modal-header {
@@ -114,7 +114,9 @@ font-family: "Caudex", serif;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
         }
-
+#startChat{
+  font-size: 35px;
+}
         .modal-body {
             text-align: center;
             background: #f7f7f7;
