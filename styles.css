@@ -18,7 +18,7 @@ font-family: "Caudex", serif;
         }
 
         .chat-header {
-            background-color: #212121;
+            background-image: url('h-bg.gif');
             color: #fff;
             text-align: center;
             font-size: 1.1rem;
@@ -30,7 +30,8 @@ font-family: "Caudex", serif;
             flex-grow: 1;
             overflow-y: auto;
             padding: 15px;
-            background-color: #333;
+            background-image: url('bg.jpg');
+            background-size: cover;
             border-radius: 15px;
             margin-bottom: 15px;
             display: flex;
@@ -83,11 +84,13 @@ font-family: "Caudex", serif;
         .message.sent {
             background: #2e5266;
             color: #EE7C99;
+            border: 0.5px solid #888;
             align-self: flex-end;
         }
 
         .message.received {
             background: #4e4e4e;
+            border: 0.5px solid #888;
             color: #fff;
             align-self: flex-start;
         }
@@ -180,6 +183,13 @@ font-family: "Caudex", serif;
     max-width: 100%;
     border-radius: 10px;
     margin-top: 5px;
+    transition: all 3.3s ease-in-out; /* Smooth transition */
+    transform-origin: center; /* Center the animation */
+}
+
+.message img:hover {
+    transform: scale(1.55); /* Slight zoom effect */
+    transition: all 3.3s ease-in-out; /* Smooth transition */
 }
 #chatUserDisplay {
   font-family: 'Poppins', sans-serif;
@@ -203,7 +213,7 @@ text-transform: uppercase;
   -webkit-text-fill-color: transparent;
   animation: textclip 8s linear infinite;
   display: inline-block;
-      font-size: 15px;
+      font-size: 10px;
       
 }
 
